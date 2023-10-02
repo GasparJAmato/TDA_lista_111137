@@ -73,85 +73,54 @@ lista_t *lista_insertar(lista_t *lista, void *elemento)
 lista_t *lista_insertar_en_posicion(lista_t *lista, void *elemento,
 				    size_t posicion)
 {	
-	if(lista == NULL || elemento == NULL ){
-		return NULL;
-	}
-
-	nodo_t *NuevoNodo = (nodo_t *)malloc(sizeof(nodo_t));
-
-	if(NuevoNodo == NULL){
-		printf("ERROR: no se pudo reservar memoria correctamente");
-		return NULL;
-	}
-
-	NuevoNodo->elemento = elemento;
-	NuevoNodo->siguiente = NULL;
-
-
-    if (posicion == 0) {
-        NuevoNodo->siguiente = lista->nodo_inicio;
-        lista->nodo_inicio = NuevoNodo;
-        return lista;
+	    if (lista == NULL || lista->nodo_inicio == NULL) {
+        return NULL; // Verificar lista válida
     }
 
-	nodo_t *nodoActual = lista->nodo_inicio;
-	nodo_t *anterior = NULL;
+    nodo_t *nodoActual = lista->nodo_inicio;
+    nodo_t *anterior = NULL;
 
+    size_t tamanio_lista = lista_tamanio(lista);
 
-	for(size_t i = 0; i < posicion; i++){
-		
-		if(nodoActual == NULL){
-			printf("ERROR: la posicion elegida esta fuera de rango");
-			free(NuevoNodo);
-			return NULL;
-		}
+    if (posicion >= tamanio_lista) {
+       
+        if (tamanio_lista == 1) {
+            
+            lista->nodo_inicio = NULL;
+            void *elemento = nodoActual->elemento;
+            free(nodoActual);
+            return elemento;
+        }
 
-		anterior = nodoActual;
-		nodoActual = nodoActual->siguiente;
-	}
+        for (size_t i = 0; i < tamanio_lista - 1; i++) {
+            anterior = nodoActual;
+            nodoActual = nodoActual->siguiente;
+        }
 
-		anterior->siguiente = NuevoNodo;
-		NuevoNodo->siguiente = nodoActual->siguiente;
-		
-	
-	return lista;
-}
+        anterior->siguiente = NULL;
+        void *elemento = nodoActual->elemento;
+        free(nodoActual);
+        return elemento;
+    }
 
-void *lista_quitar(lista_t *lista)
-{	
+    if (posicion == 0) {
+        lista->nodo_inicio = nodoActual->siguiente;
+        void *elemento = nodoActual->elemento;
+        free(nodoActual);
+        return elemento;
+    }
 
-	if(lista == NULL || lista->nodo_inicio == NULL){
-		printf("ERROR: la lista no existe o no tiene elementos");
-		return NULL;
-	}
+    for (size_t i = 0; i < posicion; i++) {
+        anterior = nodoActual;
+        nodoActual = nodoActual->siguiente;
+    }
 
-	nodo_t *nodoActual = lista->nodo_inicio;
-	nodo_t *anterior = NULL;
+    anterior->siguiente = nodoActual->siguiente;
 
-	if (lista->nodo_inicio->siguiente == NULL) {
-		
-	    void *elemento = lista->nodo_inicio->elemento;
-    	free(lista->nodo_inicio);
-    	lista->nodo_inicio = NULL;
-    	return elemento;	
-	}
+    void *elemento = nodoActual->elemento;
+    free(nodoActual);
 
-	while(nodoActual->siguiente != NULL){
-		anterior = nodoActual;
-		nodoActual = nodoActual->siguiente;
-	}
-
-	void *elemento = nodoActual->elemento;
-
-	free(nodoActual);
-	
-    
-    anterior->siguiente = NULL;
- 
-    
-
-
-	return elemento;
+    return elemento;
 }
 
 void *lista_quitar_de_posicion(lista_t *lista, size_t posicion)
