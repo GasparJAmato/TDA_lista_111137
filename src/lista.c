@@ -180,8 +180,10 @@ void *lista_quitar_de_posicion(lista_t *lista, size_t posicion)
 		
 		if(nodoActual == NULL){
 
-			printf("ERROR: la posicion elegida esta fuera de rango");			
-			return NULL;
+			printf("ERROR: la posicion elegida esta fuera de rango");
+
+					
+			return lista_quitar(lista);
 			
 		}
 
