@@ -37,7 +37,7 @@ lista_t *lista_crear()
 
 lista_t *lista_insertar(lista_t *lista, void *elemento)
 {	
-	if(lista == NULL || elemento == NULL){
+	if(lista == NULL ){
 		return NULL;
 	}
 
