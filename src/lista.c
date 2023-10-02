@@ -197,7 +197,7 @@ void *lista_quitar_de_posicion(lista_t *lista, size_t posicion)
 }
 
 void *lista_elemento_en_posicion(lista_t *lista, size_t posicion)
-{
+{	
     if (lista == NULL || lista->nodo_inicio == NULL) {
       
         return NULL;
@@ -211,10 +211,10 @@ void *lista_elemento_en_posicion(lista_t *lista, size_t posicion)
     }
 
     nodo_t *nodoActual = lista->nodo_inicio;
-    size_t posicionActual = 1;
+    
 
-    while (posicionActual != posicion) {
-        posicionActual++;
+    while (posicion != 0) {
+        posicion--;
         nodoActual = nodoActual->siguiente;
     }
 
