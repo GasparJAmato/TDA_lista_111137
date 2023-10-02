@@ -43,6 +43,7 @@ cola_t *cola_encolar(cola_t *cola, void *elemento)
 	if (cola->nodo_inicio == NULL) {
 		cola->nodo_inicio = NuevoNodo;
 
+		cola->tamanio += 1;
 		return cola;
 	}
 
@@ -54,6 +55,7 @@ cola_t *cola_encolar(cola_t *cola, void *elemento)
 
 	nodoActual->siguiente = NuevoNodo;
 
+	cola->tamanio += 1;
 	return cola;
 }
 
@@ -66,10 +68,10 @@ void *cola_desencolar(cola_t *cola)
 	nodo_t *nodoActual = cola->nodo_inicio;
 
 	cola->nodo_inicio = nodoActual->siguiente;
-
 	void *elemento = nodoActual->elemento;
 
 	free(nodoActual);
+	cola->tamanio -= 1;
 
 	return elemento;
 }
@@ -79,8 +81,8 @@ void *cola_frente(cola_t *cola)
 	if (cola == NULL || cola->nodo_inicio == NULL) {
 		return NULL;
 	}
-	nodo_t *nodoActual = cola->nodo_inicio;
-	return nodoActual->elemento;
+
+	return cola->nodo_inicio->elemento;
 }
 
 size_t cola_tamanio(cola_t *cola)
@@ -89,14 +91,7 @@ size_t cola_tamanio(cola_t *cola)
 		return 0;
 	}
 
-	nodo_t *nodoActual = cola->nodo_inicio;
-	size_t tamanio = 0;
-
-	while (nodoActual != NULL) {
-		tamanio++;
-		nodoActual = nodoActual->siguiente;
-	}
-	return tamanio;
+	return cola->tamanio;
 }
 
 bool cola_vacia(cola_t *cola)
