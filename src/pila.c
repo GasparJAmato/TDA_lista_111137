@@ -1,6 +1,5 @@
 #include "pila.h"
-#include <stdbool.h>
-#include <stddef.h>
+
 
 
 
