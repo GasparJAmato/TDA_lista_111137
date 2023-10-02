@@ -1,118 +1,121 @@
 #include "cola.h"
 
 typedef struct nodo {
-  void *elemento;
-  struct nodo *siguiente;
+	void *elemento;
+	struct nodo *siguiente;
 
 } nodo_t;
 
 struct _cola_t {
-
-  nodo_t *nodo_inicio;
-  nodo_t *nodo_final;
-  size_t tamanio;
+	nodo_t *nodo_inicio;
+	nodo_t *nodo_final;
+	size_t tamanio;
 };
 
-cola_t *cola_crear() {
-  cola_t *cola = malloc(sizeof(cola_t));
+cola_t *cola_crear()
+{
+	cola_t *cola = malloc(sizeof(cola_t));
 
-  if (cola == NULL) {
+	if (cola == NULL) {
+		return NULL;
+	}
 
-    return NULL;
-  }
+	cola->nodo_inicio = NULL;
 
-  cola->nodo_inicio = NULL;
-
-  return cola;
+	return cola;
 }
 
-cola_t *cola_encolar(cola_t *cola, void *elemento) {
+cola_t *cola_encolar(cola_t *cola, void *elemento)
+{
+	if (cola == NULL) {
+		return NULL;
+	}
 
-  if (cola == NULL) {
-    return NULL;
-  }
+	nodo_t *NuevoNodo = (nodo_t *)malloc(sizeof(nodo_t));
 
-  nodo_t *NuevoNodo = (nodo_t *)malloc(sizeof(nodo_t));
+	if (NuevoNodo == NULL) {
+		return NULL;
+	}
 
-  if (NuevoNodo == NULL) {
+	NuevoNodo->elemento = elemento;
+	NuevoNodo->siguiente = NULL;
 
-    return NULL;
-  }
+	if (cola->nodo_inicio == NULL) {
+		cola->nodo_inicio = NuevoNodo;
 
-  NuevoNodo->elemento = elemento;
-  NuevoNodo->siguiente = NULL;
+		return cola;
+	}
 
-  if (cola->nodo_inicio == NULL) {
-    cola->nodo_inicio = NuevoNodo;
+	nodo_t *nodoActual = cola->nodo_inicio;
 
-    return cola;
-  }
+	while (nodoActual->siguiente != NULL) {
+		nodoActual = nodoActual->siguiente;
+	}
 
-  nodo_t *nodoActual = cola->nodo_inicio;
+	nodoActual->siguiente = NuevoNodo;
 
-  while (nodoActual->siguiente != NULL) {
-    nodoActual = nodoActual->siguiente;
-  }
-
-  nodoActual->siguiente = NuevoNodo;
-
-  return cola;
+	return cola;
 }
 
-void *cola_desencolar(cola_t *cola) {
-  if (cola == NULL) {
-    return NULL;
-  }
+void *cola_desencolar(cola_t *cola)
+{
+	if (cola == NULL) {
+		return NULL;
+	}
 
-  nodo_t *nodoActual = cola->nodo_inicio;
+	nodo_t *nodoActual = cola->nodo_inicio;
 
-  cola->nodo_inicio = nodoActual->siguiente;
+	cola->nodo_inicio = nodoActual->siguiente;
 
-  void *elemento = nodoActual->elemento;
+	void *elemento = nodoActual->elemento;
 
-  free(nodoActual);
+	free(nodoActual);
 
-  return elemento;
+	return elemento;
 }
 
-void *cola_frente(cola_t *cola) {
-  if (cola == NULL || cola->nodo_inicio == NULL) {
-    return NULL;
-  }
-  nodo_t *nodoActual = cola->nodo_inicio;
-  return nodoActual->elemento;
+void *cola_frente(cola_t *cola)
+{
+	if (cola == NULL || cola->nodo_inicio == NULL) {
+		return NULL;
+	}
+	nodo_t *nodoActual = cola->nodo_inicio;
+	return nodoActual->elemento;
 }
 
-size_t cola_tamanio(cola_t *cola) {
-  if (cola == NULL) {
-    return 0;
-  }
+size_t cola_tamanio(cola_t *cola)
+{
+	if (cola == NULL) {
+		return 0;
+	}
 
-  nodo_t *nodoActual = cola->nodo_inicio;
-  size_t tamanio = 0;
+	nodo_t *nodoActual = cola->nodo_inicio;
+	size_t tamanio = 0;
 
-  while (nodoActual != NULL) {
-    tamanio++;
-    nodoActual = nodoActual->siguiente;
-  }
-  return tamanio;
+	while (nodoActual != NULL) {
+		tamanio++;
+		nodoActual = nodoActual->siguiente;
+	}
+	return tamanio;
 }
 
-bool cola_vacia(cola_t *cola) {
-  if (cola == NULL || cola->nodo_inicio == NULL) {
-    return true;
-  } else {
-    return false;
-  }
+bool cola_vacia(cola_t *cola)
+{
+	if (cola == NULL || cola->nodo_inicio == NULL) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
-void cola_destruir(cola_t *cola) {
-  if (cola == NULL) {
-    return;
-  }
+void cola_destruir(cola_t *cola)
+{
+	if (cola == NULL) {
+		return;
+	}
 
-  while (!cola_vacia(cola)) {
-    cola_desencolar(cola);
-  }
-  free(cola);
+	while (!cola_vacia(cola)) {
+		cola_desencolar(cola);
+	}
+	free(cola);
 }
