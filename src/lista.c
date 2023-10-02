@@ -368,7 +368,7 @@ bool lista_iterador_avanzar(lista_iterador_t *iterador)
 	if(lista_iterador_tiene_siguiente(iterador)){
 		iterador->anterior = iterador->actual;
 		iterador->actual = iterador->actual->siguiente;
-		if(lista_buscar_elemento_actual(iterador) == NULL){
+		if(lista_iterador_elemento_actual(iterador) == NULL){
 			return false;
 		}
 		return true;
