@@ -236,7 +236,7 @@ void *lista_buscar_elemento(lista_t *lista, int (*comparador)(void *, void *),
 
     while (nodoActual != NULL) {
         if (comparador(nodoActual->elemento, contexto) == 0) {
-			
+
             return nodoActual->elemento;
         }
         nodoActual = nodoActual->siguiente;
@@ -313,6 +313,9 @@ void lista_destruir(lista_t *lista)
 
 void lista_destruir_todo(lista_t *lista, void (*funcion)(void *))
 {
+	if(lista == NULL || funcion == NULL ){
+		return;
+	}
 	nodo_t *nodoActual = lista->nodo_inicio;
 
     while (nodoActual != NULL) {
@@ -320,10 +323,9 @@ void lista_destruir_todo(lista_t *lista, void (*funcion)(void *))
         nodo_t *nodoAEliminar = nodoActual;
         nodoActual = nodoActual->siguiente;
 
-        if (funcion != NULL) {
+        
 
-            funcion(nodoAEliminar->elemento);
-        }
+        funcion(nodoAEliminar->elemento);
 
         free(nodoAEliminar);
 		
