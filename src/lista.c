@@ -228,20 +228,23 @@ void *lista_elemento_en_posicion(lista_t *lista, size_t posicion)
 void *lista_buscar_elemento(lista_t *lista, int (*comparador)(void *, void *),
 			    void *contexto)
 {	
-	if(lista == NULL || comparador == NULL || contexto == NULL || lista->nodo_inicio == NULL){
-		return NULL;
-	}
-	
-	size_t rango = lista_tamanio(lista);
-	nodo_t *nodoActual = lista->nodo_inicio;
+    if (lista == NULL || comparador == NULL || lista->nodo_inicio == NULL) {
+        return NULL;
+    }
+    
+    nodo_t *nodoActual = lista->nodo_inicio;
 
-	for(size_t i = 0; i < rango; i++ ){
-		if(comparador(nodoActual->elemento, contexto) == 0){
-			return nodoActual->elemento;
-		}
-	}
-	return NULL;
+    while (nodoActual != NULL) {
+        if (comparador(nodoActual->elemento, contexto) == 0) {
+			
+            return nodoActual->elemento;
+        }
+        nodoActual = nodoActual->siguiente;
+    }
+
+    return NULL;
 }
+
 
 void *lista_primero(lista_t *lista)
 {
@@ -398,7 +401,7 @@ size_t lista_con_cada_elemento(lista_t *lista, bool (*funcion)(void *, void *),
 			       void *contexto)
 {
 
-    if(lista == NULL || contexto == NULL || funcion == NULL || lista_tamanio(lista) == 0){
+    if(lista == NULL || funcion == NULL || lista_tamanio(lista) == 0){
         return 0;
     }
 	
