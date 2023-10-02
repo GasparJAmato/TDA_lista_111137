@@ -163,7 +163,7 @@ void *lista_quitar(lista_t *lista)
 
 void *lista_quitar_de_posicion(lista_t *lista, size_t posicion)
 {	
-	if(lista == NULL){
+	if(lista == NULL || lista_tamanio(lista) == 0){
 		return NULL;
 	}
 
