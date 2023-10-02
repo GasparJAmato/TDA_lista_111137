@@ -350,7 +350,7 @@ lista_iterador_t *lista_iterador_crear(lista_t *lista)
 
 bool lista_iterador_tiene_siguiente(lista_iterador_t *iterador)
 {
-	if(iterador == NULL){
+	if(iterador == NULL || iterador->actual == NULL){
 		return false;
 	}
 
