@@ -211,7 +211,7 @@ void *lista_elemento_en_posicion(lista_t *lista, size_t posicion)
     }
 
     nodo_t *nodoActual = lista->nodo_inicio;
-    size_t posicionActual = 0;
+    size_t posicionActual = 1;
 
     while (posicionActual != posicion) {
         posicionActual++;
