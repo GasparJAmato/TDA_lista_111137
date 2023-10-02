@@ -405,8 +405,8 @@ size_t lista_con_cada_elemento(lista_t *lista, bool (*funcion)(void *, void *),
 	size_t iterados = 1;
 	nodo_t *nodoActual = lista->nodo_inicio;
 
-	while(funcion(nodoActual, contexto) && nodoActual->siguiente != NULL){
-		
+	while(funcion(nodoActual->elemento, contexto) && nodoActual->siguiente != NULL){
+
 		iterados++;
 		nodoActual = nodoActual->siguiente;
 	}
