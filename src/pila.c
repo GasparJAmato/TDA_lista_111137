@@ -1,6 +1,5 @@
 #include "pila.h"
 #include "lista.h"
-#include "lista.c"
 
 pila_t *pila_crear()
 {

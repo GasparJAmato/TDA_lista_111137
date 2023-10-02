@@ -11,7 +11,6 @@ typedef struct nodo {
 
 struct lista {
 	nodo_t *nodo_inicio;
-	nodo_t *nodo_final;
 	size_t cantidad;
 	
 };
@@ -33,7 +32,6 @@ lista_t *lista_crear()
 	}
 
 	lista->nodo_inicio = NULL;
-	lista->nodo_final = NULL;
 	lista->cantidad = 0;
 	
 	return lista;
