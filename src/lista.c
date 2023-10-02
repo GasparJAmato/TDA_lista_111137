@@ -11,7 +11,7 @@ typedef struct nodo {
 
 struct lista {
 	nodo_t *nodo_inicio;
-	size_t cantidad;
+	nodo_t *nodo_final;
 	
 };
 
@@ -32,7 +32,6 @@ lista_t *lista_crear()
 	}
 
 	lista->nodo_inicio = NULL;
-	lista->cantidad = 0;
 	
 	return lista;
 }
@@ -56,7 +55,6 @@ lista_t *lista_insertar(lista_t *lista, void *elemento)
 
 	if(lista->nodo_inicio == NULL){
 		lista->nodo_inicio = NuevoNodo;
-		lista->cantidad = 1;
 
 		return lista;
 	}
@@ -69,7 +67,6 @@ lista_t *lista_insertar(lista_t *lista, void *elemento)
 
 
 	nodoActual->siguiente = NuevoNodo;
-	lista->cantidad = lista->cantidad + 1;
 
 	return lista;
 }
@@ -95,7 +92,6 @@ lista_t *lista_insertar_en_posicion(lista_t *lista, void *elemento,
     if (posicion == 0) {
         NuevoNodo->siguiente = lista->nodo_inicio;
         lista->nodo_inicio = NuevoNodo;
-		lista->cantidad = lista->cantidad + 1;
         return lista;
     }
 
@@ -119,7 +115,6 @@ lista_t *lista_insertar_en_posicion(lista_t *lista, void *elemento,
 
 		anterior->siguiente = NuevoNodo;
 		NuevoNodo->siguiente = nodoActual;
-		lista->cantidad = lista->cantidad + 1;
 		
 	
 	return lista;
@@ -140,7 +135,6 @@ void *lista_quitar(lista_t *lista)
 		
 	    void *elemento = lista->nodo_inicio->elemento;
     	free(lista->nodo_inicio);
-		lista->cantidad = lista->cantidad - 1;
     	lista->nodo_inicio = NULL;
     	return elemento;	
 	}
@@ -151,7 +145,7 @@ void *lista_quitar(lista_t *lista)
 	}
 
 	void *elemento = nodoActual->elemento;
-	lista->cantidad = lista->cantidad - 1;
+
 	free(nodoActual);
 	
     
@@ -178,8 +172,6 @@ void *lista_quitar_de_posicion(lista_t *lista, size_t posicion)
 
 		void *elemento = nodoActual->elemento;
 
-		lista->cantidad = lista->cantidad - 1;
-
 		free(nodoActual);
 
         return elemento;
@@ -199,7 +191,6 @@ void *lista_quitar_de_posicion(lista_t *lista, size_t posicion)
 		anterior = nodoActual;
 		nodoActual = nodoActual->siguiente;
 	}
-	lista->cantidad = lista->cantidad - 1;
 
 	anterior->siguiente = nodoActual->siguiente;
 
@@ -292,8 +283,18 @@ bool lista_vacia(lista_t *lista)
 size_t lista_tamanio(lista_t *lista)
 {	
 
+	if(lista == NULL){
+		return 0;
+	}
 
-	return lista->cantidad;
+	nodo_t *nodoActual = lista->nodo_inicio;
+	size_t tamanio = 0;
+
+	while(nodoActual != NULL){
+		tamanio++;
+		nodoActual = nodoActual->siguiente;
+	}
+	return tamanio;
 }
 
 void lista_destruir(lista_t *lista)
