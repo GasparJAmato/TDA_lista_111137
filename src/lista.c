@@ -373,7 +373,7 @@ bool lista_iterador_avanzar(lista_iterador_t *iterador)
 		}
 		return true;
 	}
-	return;
+	return false;
 }
 
 void *lista_iterador_elemento_actual(lista_iterador_t *iterador)
