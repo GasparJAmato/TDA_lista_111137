@@ -11,8 +11,6 @@ typedef struct nodo {
 
 struct lista {
 	nodo_t *nodo_inicio;
-	nodo_t *nodo_fin;
-	size_t tamanio;
 	
 };
 
@@ -27,13 +25,12 @@ lista_t *lista_crear()
 
 	if(lista == NULL){
 
-		return lista;
+
+		return NULL;
 		
 	}
 
-	(*lista).nodo_inicio = NULL;
-    (*lista).nodo_fin = NULL;
-    (*lista).tamanio = 0;
+	lista->nodo_inicio = NULL;
 	
 	return lista;
 }
@@ -159,44 +156,54 @@ void *lista_quitar(lista_t *lista)
 
 void *lista_quitar_de_posicion(lista_t *lista, size_t posicion)
 {	
-	if(lista == NULL){
-		return NULL;
-	}
+	    if (lista == NULL || lista->nodo_inicio == NULL) {
+        return NULL; // Verificar lista válida
+    }
 
-	nodo_t *nodoActual = lista->nodo_inicio;
-	nodo_t *anterior = NULL;
+    nodo_t *nodoActual = lista->nodo_inicio;
+    nodo_t *anterior = NULL;
 
-    if (posicion == 0) {
+    size_t range = lista_tamanio(lista);
+
+    if (posicion >= range) {
         
-        lista->nodo_inicio = nodoActual->siguiente;
+        if (range == 1) {
+            
+            lista->nodo_inicio = NULL;
+            void *elemento = nodoActual->elemento;
+            free(nodoActual);
+            return elemento;
+        }
 
-		void *elemento = nodoActual->elemento;
+        for (size_t i = 0; i < range - 1; i++) {
+            anterior = nodoActual;
+            nodoActual = nodoActual->siguiente;
+        }
 
-		free(nodoActual);
-
+        anterior->siguiente = NULL;
+        void *elemento = nodoActual->elemento;
+        free(nodoActual);
         return elemento;
     }
 
-	for(size_t i = 0; i < posicion; i++){
-		
-		if(nodoActual == NULL){
+    if (posicion == 0) {
+        lista->nodo_inicio = nodoActual->siguiente;
+        void *elemento = nodoActual->elemento;
+        free(nodoActual);
+        return elemento;
+    }
 
-			printf("ERROR: la posicion elegida esta fuera de rango");			
-			return NULL;
-			
-		}
+    for (size_t i = 0; i < posicion; i++) {
+        anterior = nodoActual;
+        nodoActual = nodoActual->siguiente;
+    }
 
-		anterior = nodoActual;
-		nodoActual = nodoActual->siguiente;
-	}
+    anterior->siguiente = nodoActual->siguiente;
 
-	anterior->siguiente = nodoActual->siguiente;
+    void *elemento = nodoActual->elemento;
+    free(nodoActual);
 
-	void *elemento = nodoActual->elemento;
-
-	free(nodoActual);
-
-	return elemento;
+    return elemento;
 }
 
 void *lista_elemento_en_posicion(lista_t *lista, size_t posicion)
