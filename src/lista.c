@@ -12,6 +12,7 @@ typedef struct nodo {
 struct lista {
 	nodo_t *nodo_inicio;
 	nodo_t *nodo_final;
+	size_t tamanio;
 	
 };
 
