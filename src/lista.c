@@ -354,7 +354,7 @@ bool lista_iterador_tiene_siguiente(lista_iterador_t *iterador)
 		return false;
 	}
 
-	return iterador->actual->siguiente != NULL;
+	return iterador->actual != NULL;
 	
 	
 }
