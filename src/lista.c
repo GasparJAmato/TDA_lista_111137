@@ -77,7 +77,6 @@ lista_t *lista_insertar_en_posicion(lista_t *lista, void *elemento,
 	nodo_t *NuevoNodo = (nodo_t *)malloc(sizeof(nodo_t));
 
 	if (NuevoNodo == NULL) {
-		printf("ERROR: no se pudo reservar memoria correctamente");
 		return NULL;
 	}
 
@@ -112,7 +111,6 @@ lista_t *lista_insertar_en_posicion(lista_t *lista, void *elemento,
 void *lista_quitar(lista_t *lista)
 {
 	if (lista == NULL || lista->nodo_inicio == NULL) {
-		printf("ERROR: la lista no existe o no tiene elementos");
 		return NULL;
 	}
 
