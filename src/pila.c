@@ -11,10 +11,10 @@ typedef struct nodo {
 } nodo_t;
 
 struct _pila_t{
+	
 	nodo_t *nodo_inicio;
 	nodo_t *nodo_final;
 	size_t tamanio;
-	
 };
 
 pila_t *pila_crear()
@@ -50,22 +50,10 @@ pila_t *pila_apilar(pila_t *pila, void *elemento)
 	NuevoNodo->siguiente = NULL;
 
 
-	if(pila->nodo_inicio == NULL){
-		pila->nodo_inicio = NuevoNodo;
-
-		return pila;
-	}
-
-	nodo_t *nodoActual = pila->nodo_inicio;
-
-	while(nodoActual->siguiente != NULL){
-		nodoActual = nodoActual->siguiente;
-	}
-
-
-	nodoActual->siguiente = NuevoNodo;
-
-	return pila;
+        NuevoNodo->siguiente = pila->nodo_inicio;
+        pila->nodo_inicio = NuevoNodo;
+        return pila;
+ 
 }
 
 void *pila_desapilar(pila_t *pila)
@@ -146,16 +134,12 @@ bool pila_vacia(pila_t *pila)
 
 void pila_destruir(pila_t *pila)
 {
-		if(pila == NULL  ){
+	if(pila == NULL){
 		return;
 	}
-	nodo_t *nodoActual = pila->nodo_inicio;
-	while(nodoActual != NULL){
 
-        nodo_t *nodoAEliminar = nodoActual;
-        nodoActual = nodoActual->siguiente;
-		
-        free(nodoAEliminar); 
+	while (!pila_vacia(pila)) {
+		pila_desapilar(pila);
 	}
 	free(pila);
 }

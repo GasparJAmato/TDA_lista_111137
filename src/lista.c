@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+
+
 typedef struct nodo {
 	void *elemento;
 	struct nodo *siguiente;
