@@ -1,6 +1,6 @@
 #include "cola.h"
 
-#define posicion 0
+
 typedef struct nodo {
 	void *elemento;
 	struct nodo *siguiente;
