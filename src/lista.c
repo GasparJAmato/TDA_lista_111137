@@ -291,7 +291,7 @@ size_t lista_tamanio(lista_t *lista)
 
 void lista_destruir(lista_t *lista)
 {
-	if(lista == NULL || lista->nodo_inicio == NULL){
+	if(lista == NULL ){
 		return;
 	}
 	nodo_t *nodoActual = lista->nodo_inicio;
