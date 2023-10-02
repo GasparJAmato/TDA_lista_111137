@@ -198,27 +198,27 @@ void *lista_quitar_de_posicion(lista_t *lista, size_t posicion)
 
 void *lista_elemento_en_posicion(lista_t *lista, size_t posicion)
 {
-	size_t rango = lista_tamanio(lista);
-	if(lista == NULL || lista->nodo_inicio == NULL){
-		return NULL;
-	}
+    if (lista == NULL || lista->nodo_inicio == NULL) {
+      
+        return NULL;
+    }
 
-	/*AGREGAR ESTO ARRIBA*/
-	if(rango < posicion){
+    size_t rango = lista_tamanio(lista);
 
-		printf("ERROR: fuera del rango de la lista");
-		return NULL;
-	}
+    if (posicion >= rango) {
+        
+        return NULL;
+    }
 
-	nodo_t *nodoActual = lista->nodo_inicio;
-	size_t posicionActual = 0;
+    nodo_t *nodoActual = lista->nodo_inicio;
+    size_t posicionActual = 0;
 
-	while(posicionActual != posicion){
-		posicionActual++;
-		nodoActual = nodoActual->siguiente;
-	}
+    while (posicionActual != posicion) {
+        posicionActual++;
+        nodoActual = nodoActual->siguiente;
+    }
 
-	return nodoActual->elemento;
+    return nodoActual->elemento;
 }
 
 void *lista_buscar_elemento(lista_t *lista, int (*comparador)(void *, void *),
