@@ -306,7 +306,7 @@ void lista_destruir(lista_t *lista)
 
         nodo_t *nodoAEliminar = nodoActual;
         nodoActual = nodoActual->siguiente;
-		free(nodoAEliminar->elemento); 
+		
         free(nodoAEliminar); 
 	}
 	free(lista);
@@ -314,7 +314,7 @@ void lista_destruir(lista_t *lista)
 
 void lista_destruir_todo(lista_t *lista, void (*funcion)(void *))
 {
-	if(lista == NULL || funcion == NULL ){
+	if(lista == NULL ){
 		return;
 	}
 	nodo_t *nodoActual = lista->nodo_inicio;
@@ -324,10 +324,10 @@ void lista_destruir_todo(lista_t *lista, void (*funcion)(void *))
 
         nodo_t *nodoAEliminar = nodoActual;
         nodoActual = nodoActual->siguiente;
-		
-        funcion(nodoAEliminar->elemento);
-
-        free(nodoAEliminar);
+		if(funcion != NULL){
+        	funcion(nodoAEliminar->elemento);
+		}
+	    free(nodoAEliminar);
 		
     }
 	free(lista);
