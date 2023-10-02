@@ -102,7 +102,7 @@ lista_t *lista_insertar_en_posicion(lista_t *lista, void *elemento,
 	for(size_t i = 0; i < posicion; i++){
 		
 		if(nodoActual == NULL){
-			printf("ERROR: la posicion elegida esta fuera de rango");
+	
 			
 			free(NuevoNodo);
 			return lista_insertar(lista, elemento);
@@ -180,7 +180,7 @@ void *lista_quitar_de_posicion(lista_t *lista, size_t posicion)
 		
 		if(nodoActual == NULL){
 
-			printf("ERROR: la posicion elegida esta fuera de rango");
+
 
 					
 			return lista_quitar(lista);
