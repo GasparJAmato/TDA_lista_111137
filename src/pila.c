@@ -3,34 +3,35 @@
 
 pila_t *pila_crear()
 {
-	return NULL;
+	return lista_crear();
 }
 
 pila_t *pila_apilar(pila_t *pila, void *elemento)
 {
-	return NULL;
+	return lista_insertar(pila, elemento);
 }
 
 void *pila_desapilar(pila_t *pila)
 {
-	return NULL;
+	return lista_quitar(pila);
 }
 
 void *pila_tope(pila_t *pila)
 {
-	return NULL;
+	return lista_ultimo(pila);
 }
 
 size_t pila_tamanio(pila_t *pila)
 {
-	return 0;
+	return lista_tamanio(pila);
 }
 
 bool pila_vacia(pila_t *pila)
 {
-	return false;
+	return lista_vacia(pila);
 }
 
 void pila_destruir(pila_t *pila)
 {
+	lista_destruir(pila);
 }
