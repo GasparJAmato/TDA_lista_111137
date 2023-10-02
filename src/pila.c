@@ -42,7 +42,7 @@ pila_t *pila_apilar(pila_t *pila, void *elemento)
 	if(pila->tamanio == 0){
 		nodo->elemento = elemento;
 		nodo->anterior = NULL;
-		pila->tamanio = 1;
+		pila->tamanio = 0;
 
 		return pila;
 	}

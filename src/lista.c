@@ -11,6 +11,8 @@ typedef struct nodo {
 
 struct lista {
 	nodo_t *nodo_inicio;
+	nodo_t *nodo_fin;
+	size_t tamanio;
 	
 };
 
@@ -25,14 +27,15 @@ lista_t *lista_crear()
 
 	if(lista == NULL){
 
-		printf("ERROR: no se pudo asignar memoria correctamente");
-		return NULL;
+		return lista;
 		
 	}
 
-	lista->nodo_inicio = NULL;
+	(*lista).nodo_inicio = NULL;
+    (*lista).nodo_fin = NULL;
+    (*lista).tamanio = 0;
 	
-	return	lista;
+	return lista;
 }
 
 lista_t *lista_insertar(lista_t *lista, void *elemento)
