@@ -99,7 +99,7 @@ void *pila_tope(pila_t *pila)
 
 	nodo_t *nodoActual = pila->nodo_inicio;
 
-    while (nodoActual->siguiente != NULL) {
+    while (nodoActual != NULL) {
         nodoActual = nodoActual->siguiente;
     }
 	return nodoActual->elemento;

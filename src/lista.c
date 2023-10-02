@@ -263,15 +263,17 @@ void *lista_primero(lista_t *lista)
 void *lista_ultimo(lista_t *lista)
 {	
 	if(lista == NULL || lista->nodo_inicio == NULL){
-		return NULL;
+    	return NULL;
 	}
 
 	nodo_t *nodoActual = lista->nodo_inicio;
 
-    while (nodoActual->siguiente != NULL) {
-        nodoActual = nodoActual->siguiente;
-    }
+	while (nodoActual->siguiente != NULL) {
+    	nodoActual = nodoActual->siguiente;
+	}
+
 	return nodoActual->elemento;
+
 }
 
 bool lista_vacia(lista_t *lista)
