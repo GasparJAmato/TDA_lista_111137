@@ -97,7 +97,14 @@ void lista_destruir(lista_t *lista);
 
 /**
  * Libera la memoria reservada por la lista pero además aplica la función
- * destructora dada (si no es NULL) a cada uno de los elementos presentes en la
+ * destructora dada (si no es NULL) a cada uno de los elementos pres
+ * 
+ * 
+ * 
+ * 
+ * 
+ *
+ entes en la
  * lista.
  */
 void lista_destruir_todo(lista_t *lista, void (*funcion)(void *));
